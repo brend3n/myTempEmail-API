@@ -1,4 +1,5 @@
 
+
 # temp_mail_api
 
 A simple API for interfacing with https://mytemp.email/.
@@ -18,25 +19,24 @@ Install the dependencies by cloneing the repo.
 
 Getting an email address
 ```python
-import temp_mail_api as tmp
-driver = tmp.start()
-email_url, inbox,hash = tmp.get_email_address(driver)
+from temp_mail_api import TempMail
+mail = TempMail()
+email = mail.get_email_address()
 ```
 
 Retrieve email from inbox
 ```python
-import temp_mail_api as tmp
-driver = tmp.start()
-email_url, inbox,hash = tmp.get_email_address(driver)
-message = tmp.get_message(inbox, hash)
-
+from temp_mail_api import TempMail
+mail = TempMail()
+email = mail.get_email_address()
+message = mail.get_message()
 ```
 
 
 
 Pop message from inbox
 ```python
-import temp_mail_api as tmp
-driver = tmp.start()
-tmp.delete_message(driver)
+from temp_mail_api import TempMail
+mail = TempMail()
+mail.delete_message()
 ```
