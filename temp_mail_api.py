@@ -34,20 +34,22 @@ class TempMail():
 	# ! Could fix this
 	# Cleaning data
 	def clean_email_address_GET(self, data):
-		# data = str(data)[97:]
-		# data = data[:data.index("',") + 1].strip()
-		# data = data.replace(':{"',':"').replace("}}", "}")
-		# data = list(data[data.index(":"):])
-		# data[0] = "{"
-		# data = "".join(data)[:-1]
-		print(f"Before cleaning: {data}")
-		data = str(re.findall(r'({\"inbox(.*?)\"})', str(data)))
-		print(f"cleaning: {data}")
-		sleep(4000)
-		# data = json.loads(data)
-		# inbox = data["inbox"]
-		# hash = data["hash"]
-		# return inbox, hash
+		data = str(data)[97:]
+		data = data[:data.index("',") + 1].strip()
+		data = data.replace(':{"',':"').replace("}}", "}")
+		data = list(data[data.index(":"):])
+		data[0] = "{"
+		data = "".join(data)[:-1]
+  
+		# print(f"Before cleaning: {data}")
+		# data = str(re.findall(r'({\"inbox(.*?)\"})', str(data)))
+		# print(f"cleaning: {data}")
+  
+		# sleep(4000)
+		data = json.loads(data)
+		inbox = data["inbox"]
+		hash = data["hash"]
+		return inbox, hash
 
 	# Returns a new temporary email address
 	def get_email_address(self):
