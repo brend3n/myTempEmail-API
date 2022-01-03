@@ -6,7 +6,8 @@ A simple API for interfacing with https://mytemp.email/.
 ## Features
 
 - Fetch new temporary mailbox
-- Read message and remove (pop) message from the inbox.
+- Pop messages from the inbox
+-- Read message and remove it from the inbox.
 
 ## Installation
 
@@ -15,22 +16,27 @@ Install the dependencies by clonging the repo.
 
 ## Use
 
-_Getting an email address_
+Getting an email address
+```
+import temp_mail_api as tmp
+driver = tmp.start()
+email_url, inbox,hash = tmp.get_email_address(driver)
+```
 
-`import temp_mail_api as tmp`
-`driver = tmp.start()`
-`email_url, inbox,hash = tmp.get_email_address(driver)`
+Retrieve email from inbox
+```
+import temp_mail_api as tmp
+driver = tmp.start()
+email_url, inbox,hash = tmp.get_email_address(driver)
+message = tmp.get_message(inbox, hash)
 
-_Retrieve email from inbox._
-`import temp_mail_api as tmp`
-`driver = tmp.start()`
+```
 
-`email_url, inbox,hash =` `tmp.get_email_address(driver)`
 
-`message = tmp.get_message(inbox,hash)`
 
-_Pop message from inbox_
-`import temp_mail_api as tmp`
-`driver = tmp.start()`
-`tmp.delete_message(driver)`
-
+Pop message from inbox
+```
+import temp_mail_api as tmp
+driver = tmp.start()
+tmp.delete_message(driver)
+```
