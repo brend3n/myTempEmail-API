@@ -12,7 +12,7 @@ A simple API for interfacing with https://mytemp.email/.
 ## Installation
 
 temp_mail_api requires Selenium and BS4 to work properly.
-Install the dependencies by clonging the repo.
+Install the dependencies by cloneing the repo.
 
 ## Use
 
