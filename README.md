@@ -6,8 +6,7 @@ A simple API for interfacing with https://mytemp.email/.
 ## Features
 
 - Fetch new temporary mailbox
-- Pop messages from the inbox
--- Read message and remove it from the inbox.
+- Read message and remove (pop) message from the inbox.
 
 ## Installation
 
