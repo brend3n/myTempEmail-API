@@ -10,6 +10,8 @@ import json
 import warnings
 warnings.filterwarnings("ignore", category=DeprecationWarning) 
 
+import re
+
 
 
 class TempMail():
@@ -29,19 +31,25 @@ class TempMail():
 		self.driver.get(url)
 		sleep(5)
 
+	# ! Could fix this
+	# Cleaning data
 	def clean_email_address_GET(self, data):
-		data = str(data)[97:]
-		data = data[:data.index("',") + 1].strip()
-		data = data.replace(':{"',':"').replace("}}", "}")
-		data = list(data[data.index(":"):])
-		data[0] = "{"
-		data = "".join(data)[:-1]
-		
-		data = json.loads(data)
-		inbox = data["inbox"]
-		hash = data["hash"]
-		return inbox, hash
+		# data = str(data)[97:]
+		# data = data[:data.index("',") + 1].strip()
+		# data = data.replace(':{"',':"').replace("}}", "}")
+		# data = list(data[data.index(":"):])
+		# data[0] = "{"
+		# data = "".join(data)[:-1]
+		print(f"Before cleaning: {data}")
+		data = str(re.findall(r'({\"inbox(.*?)\"})', str(data)))
+		print(f"cleaning: {data}")
+		sleep(4000)
+		# data = json.loads(data)
+		# inbox = data["inbox"]
+		# hash = data["hash"]
+		# return inbox, hash
 
+	# Returns a new temporary email address
 	def get_email_address(self):
 		data = self.driver.execute_script("return window.localStorage")
 		self.inbox, self.hash = self.clean_email_address_GET(data)
@@ -49,6 +57,7 @@ class TempMail():
 		print(f"email_url: {self.email_url}")
 		return self.email_url, self.inbox, self.hash
 
+	# Used for finding elements with the Selenium library
 	def read_XPATH(self,xpath):
 		try:
 			WebDriverWait(self.driver,10).until(EC.element_to_be_clickable((By.XPATH, xpath)))
@@ -57,6 +66,7 @@ class TempMail():
 		data = self.driver.find_element(By.XPATH, xpath).get_attribute("ng-href");
 		return data
 
+	# Returns the top message in the inbox
 	def get_message(self):
 		inbox = [] 
 		data = self.read_XPATH(xpath='//*[@id="app"]/div/md-content/div/div/div/md-list/md-list-item[1]/a')
@@ -68,9 +78,15 @@ class TempMail():
   
 		return message
 
-	def get_messages(self):
+	# Returns all messages in the inbox
+	def get_all_messages(self):
+		pass
+	
+	# Delete an indexed message from the inbox
+	def delete_message(self, index):
 		pass
 
+	# Delete the top message in the inbox
 	def delete_message(self):
 		self.driver.get(self.email_url)
 		data = self.read_XPATH(xpath='//*[@id="app"]/div/md-content/div/div/div/md-list/md-list-item[1]/a')
