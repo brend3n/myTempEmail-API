@@ -18,7 +18,7 @@ warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 def start(url):
     chrome_options = Options()
-    # chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--headless")
     
     # Remove the warnings
     try:
@@ -67,6 +67,7 @@ def get_first_message_in_inbox_from_email_address(address, hash):
     data = read_XPATH(driver, xpath='//*[@id="app"]/div/md-content/div/div/div/md-list/md-list-item[1]/a')
     
     message_url = f"https://mytemp.email/2/{data}"
+    # print(f"message_url: {message_url}")
     driver.get(message_url)
     
     sleep(5)
@@ -77,17 +78,20 @@ def get_first_message_in_inbox_from_email_address(address, hash):
     return message
 
 def pop_message_from_inbox(address, hash):
-	sid = 7637108
-	task = 18
-	tt = 1445
- 
-	delete_url = f"https://api.mytemp.email/1/eml/destroy?eml={address}&hash={hash}"
+	start_url = f"https://mytemp.email/2/#!/inbox/{address}/{hash}"
+	driver = start(start_url)
+	data = read_XPATH(driver, xpath='//*[@id="app"]/div/md-content/div/div/div/md-list/md-list-item[1]/a')
+
+	message_address = data[7:].split("/")
+	# print(f"message_address: {message_address}")
+	delete_url = f"https://api.mytemp.email/1/eml/destroy?eml={message_address[0]}&hash={message_address[1]}"
+	# print(f"delete_url: {delete_url}")
 	output = requests.get(delete_url)
-	print(f"output: {output}")
+	# print(f"output: {output}")
 	pass
 
 # driver = start(start)
 # get_new_email_address(driver)
 # read_XPATH(driver, "//*[@id='app']/div/md-content/div/div/div/md-list")
-get_first_message_in_inbox_from_email_address("hesj@hezll.com","41bcb0cb")
-# pop_message_from_inbox("hesj@hezll.com","41bcb0cb")
+# get_first_message_in_inbox_from_email_address("hesj@hezll.com","41bcb0cb")
+pop_message_from_inbox("hesj@hezll.com","41bcb0cb")
