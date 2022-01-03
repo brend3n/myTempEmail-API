@@ -59,11 +59,11 @@ def read_XPATH(driver, xpath):
 	# print(f"data: {data}")
 	return data
 
-def get_first_message_in_inbox_from_email_address(address, hash):
+def get_message(driver, address, hash):
     inbox = []
     
     start_url = f"https://mytemp.email/2/#!/inbox/{address}/{hash}"
-    driver = start(start_url)
+    # driver = start(start_url)
     data = read_XPATH(driver, xpath='//*[@id="app"]/div/md-content/div/div/div/md-list/md-list-item[1]/a')
     
     message_url = f"https://mytemp.email/2/{data}"
@@ -77,9 +77,9 @@ def get_first_message_in_inbox_from_email_address(address, hash):
     print(f"message: {message}")
     return message
 
-def remove_message_from_inbox(address, hash):
+def delete_message(driver, address, hash):
 	start_url = f"https://mytemp.email/2/#!/inbox/{address}/{hash}"
-	driver = start(start_url)
+	# driver = start(start_url)
 	data = read_XPATH(driver, xpath='//*[@id="app"]/div/md-content/div/div/div/md-list/md-list-item[1]/a')
 
 	message_address = data[7:].split("/")
@@ -89,9 +89,3 @@ def remove_message_from_inbox(address, hash):
 	output = requests.get(delete_url)
 	# print(f"output: {output}")
 	pass
-
-# driver = start(start)
-# get_new_email_address(driver)
-# read_XPATH(driver, "//*[@id='app']/div/md-content/div/div/div/md-list")
-# get_first_message_in_inbox_from_email_address("hesj@hezll.com","41bcb0cb")
-remove_message_from_inbox("hesj@hezll.com","41bcb0cb")
