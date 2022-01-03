@@ -17,14 +17,14 @@ Install the dependencies by clonging the repo.
 ## Use
 
 Getting an email address
-```
+```python
 import temp_mail_api as tmp
 driver = tmp.start()
 email_url, inbox,hash = tmp.get_email_address(driver)
 ```
 
 Retrieve email from inbox
-```
+```python
 import temp_mail_api as tmp
 driver = tmp.start()
 email_url, inbox,hash = tmp.get_email_address(driver)
@@ -35,7 +35,7 @@ message = tmp.get_message(inbox, hash)
 
 
 Pop message from inbox
-```
+```python
 import temp_mail_api as tmp
 driver = tmp.start()
 tmp.delete_message(driver)
