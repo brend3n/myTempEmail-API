@@ -7,11 +7,33 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 
-from bs4 import BeautifulSoup
-from web_scraper import get_soup_adv
+# from bs4 import BeautifulSoup
+# from web_scraper import get_soup_adv
 from time import sleep
 import json
 import warnings
+
+
+class TempMail():
+	def __init__(self):
+		pass
+	
+	def start():
+		pass
+
+	def clean_email_address_GET(data):
+		pass
+
+	def get_email_address(driver):
+		pass
+	def read_XPATH(driver, xpath):
+		pass
+	def get_message(driver, address, hash):
+		pass
+	def delete_message(driver):
+		pass
+
+
 start_url = "https://mytemp.email/2/"
 
 warnings.filterwarnings("ignore", category=DeprecationWarning) 
@@ -43,12 +65,12 @@ def clean_email_address_GET(data):
 	hash = data["hash"]
 	return inbox, hash
 
-def get_new_email_address(driver):
+def get_email_address(driver):
 	data = driver.execute_script("return window.localStorage")
 	inbox,hash = clean_email_address_GET(data)
 	email_url = f"https://mytemp.email/2/#!/inbox/{inbox}/{hash}"
 	print(f"email_url: {email_url}")
-	return email_url
+	return email_url, inbox, hash
 
 def read_XPATH(driver, xpath):
 	try:
@@ -77,7 +99,7 @@ def get_message(driver, address, hash):
     print(f"message: {message}")
     return message
 
-def delete_message(driver, address, hash):
+def delete_message(driver):
 	start_url = f"https://mytemp.email/2/#!/inbox/{address}/{hash}"
 	# driver = start(start_url)
 	data = read_XPATH(driver, xpath='//*[@id="app"]/div/md-content/div/div/div/md-list/md-list-item[1]/a')
