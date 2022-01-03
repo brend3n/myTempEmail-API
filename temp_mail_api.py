@@ -21,7 +21,7 @@ class TempMail():
 	
 	def start(self, url):
 		chrome_options = Options()
-		# chrome_options.add_argument("--headless")
+		chrome_options.add_argument("--headless")
 		
 		# Remove the warnings
 		try:
